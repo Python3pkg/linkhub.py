@@ -7,7 +7,7 @@ import base64
 try:
     import http.client as httpclient
 except ImportError:
-    import httplib as httpclient
+    import http.client as httpclient
 import io
 from time import time as stime
 from hashlib import sha1
@@ -139,7 +139,7 @@ class Utils:
         return base64.b64encode(hmac.new(base64.b64decode(keyString.encode('utf-8')),targetString.encode('utf-8'),sha1).digest()).decode().rstrip('\n')
 
     @staticmethod
-    def _json_object_hook(d): return namedtuple('X', d.keys())(*d.values())
+    def _json_object_hook(d): return namedtuple('X', list(d.keys()))(*list(d.values()))
 
     @staticmethod
     def json2obj(data):
